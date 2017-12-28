@@ -37,13 +37,13 @@ namespace TicTacToe.General
 
             var rGroup = moves.GroupBy(m => m.Row);
 
-            if(rGroup.Any(g => g.Count() == 3)){
+            if(rGroup.Any(g => g.Count() == 3) || (rGroup.Count() == 3 && rGroup.All(g => g.Count() == 1))){
                 return true;
             }
 
             var cGroup = moves.GroupBy(m => m.Row);
 
-            if(cGroup.Any(g => g.Count() == 3)){
+            if(cGroup.Any(g => g.Count() == 3)|| (cGroup.Count() == 3 && cGroup.All(g => g.Count() == 1))){
                 return true;
             }
 
