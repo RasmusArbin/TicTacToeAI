@@ -19,12 +19,12 @@ namespace TicTacToe.General
         }
 
         public Move Move(List<Move> previousMoves, int moveNumber){
-            List<GameMoves> oldGameMoves = GetSavedGameMoves();
+            List<GameMoves> oldGameMoves = StorageService.GameMoves;
 
             List<GameMoves> winningMatchedMoves = oldGameMoves.Where(m => m.WinnerNumber.HasValue && m.WinnerNumber == PlayerNumber && m.Moves.Take(previousMoves.Count).SequenceEqual(previousMoves)).ToList();
             List<Move> loosingMatchedMoves = oldGameMoves.Where(m => m.WinnerNumber.HasValue && m.WinnerNumber != PlayerNumber && m.Moves.Take(previousMoves.Count).SequenceEqual(previousMoves)).SelectMany(m => m.Moves).ToList();
 
-            if(previousMoves.Any() && winningMatchedMoves.Any()){
+            if(winningMatchedMoves.Any()){
                 // Console.WriteLine("Success!!");
                 List<Move> availableMoves = winningMatchedMoves.Where(m => m.WinnerNumber == PlayerNumber).SelectMany(m => m.Moves).ToList();
                 
@@ -61,28 +61,8 @@ namespace TicTacToe.General
             };
         }
 
-        private List<GameMoves> GetSavedGameMoves(){
-            if (!File.Exists(storagePath))
-            {
-                string createText = JsonConvert.SerializeObject(new List<GameMoves>());
-                File.WriteAllText(storagePath, createText);
-            }
-
-            return JsonConvert.DeserializeObject<List<GameMoves>>(File.ReadAllText(storagePath));
-        }
-
-        private void TryAppendSavedGameMoves(GameMoves gameMove){
-            List<GameMoves> gameMoves = GetSavedGameMoves();
-
-            if(!gameMoves.Contains(gameMove)){
-                gameMoves.Add(gameMove);
-                string strMoves = JsonConvert.SerializeObject(gameMoves);
-                File.WriteAllText(storagePath, strMoves);
-            }
-        }
-
         public void AfterGameFinished(IGame game){
-           TryAppendSavedGameMoves(new GameMoves(){
+           StorageService.TryAppendSavedGameMoves(new GameMoves(){
                Moves = game.Moves,
                WinnerNumber = game.Winner?.PlayerNumber
            });

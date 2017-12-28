@@ -26,7 +26,7 @@ namespace TicTacToe
                 //     Console.WriteLine(item);
                 // }
 
-                // Console.WriteLine($"Winner number: {game.Winner?.PlayerNumber}");
+                Console.WriteLine($"Winner number: {game.Winner?.PlayerNumber}");
 
                 winner = game.Winner;
 
@@ -35,6 +35,8 @@ namespace TicTacToe
                     player.AfterGameFinished(game);
                 }
             }
+
+            StorageService.Save();
         }
     }
 }
