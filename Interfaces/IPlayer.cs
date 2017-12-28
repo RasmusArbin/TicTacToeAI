@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
+using TicTacToe.General;
 
 namespace TicTacToe.Interfaces
 {
     public interface IPlayer
     {
-        Dictionary<int, int[][]> Moves {get; set;}
-        void Move(int moveId);
+        int PlayerNumber{get;}
+        Move Move(List<Move> previousMoves, int moveId);
     }
 }
