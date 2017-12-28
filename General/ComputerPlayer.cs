@@ -24,7 +24,7 @@ namespace TicTacToe.General
             List<GameMoves> winningMatchedMoves = oldGameMoves.Where(m => m.WinnerNumber.HasValue && m.WinnerNumber == PlayerNumber && m.Moves.Take(previousMoves.Count).SequenceEqual(previousMoves)).ToList();
             List<Move> loosingMatchedMoves = oldGameMoves.Where(m => m.WinnerNumber.HasValue && m.WinnerNumber != PlayerNumber && m.Moves.Take(previousMoves.Count).SequenceEqual(previousMoves)).SelectMany(m => m.Moves).ToList();
 
-            if(winningMatchedMoves.Any()){
+            if(previousMoves.Any() && winningMatchedMoves.Any()){
                 // Console.WriteLine("Success!!");
                 List<Move> availableMoves = winningMatchedMoves.Where(m => m.WinnerNumber == PlayerNumber).SelectMany(m => m.Moves).ToList();
                 
