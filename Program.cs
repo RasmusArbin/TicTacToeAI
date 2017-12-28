@@ -24,9 +24,7 @@ namespace TicTacToe
                     Console.WriteLine(item);
                 }
 
-                int winnerId = game.Players.IndexOf(game.Winner);
-
-                Console.WriteLine($"Winner number: {winnerId}");
+                Console.WriteLine($"Winner number: {game.Winner?.PlayerNumber}");
 
                 winner = game.Winner;
             }
