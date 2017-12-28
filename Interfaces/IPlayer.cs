@@ -8,5 +8,6 @@ namespace TicTacToe.Interfaces
     {
         int PlayerNumber{get;}
         Move Move(List<Move> previousMoves, int moveId);
+        void AfterGameFinished(IGame game);
     }
 }

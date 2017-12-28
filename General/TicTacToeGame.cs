@@ -33,7 +33,7 @@ namespace TicTacToe.General
         }
 
         private bool HasWon(IPlayer player){
-            var moves = Moves.Where(m => m.Player == player);
+            var moves = Moves.Where(m => m.PlayerNumber == player.PlayerNumber);
 
             var rGroup = moves.GroupBy(m => m.Row);
 

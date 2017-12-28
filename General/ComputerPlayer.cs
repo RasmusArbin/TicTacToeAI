@@ -3,11 +3,14 @@ using TicTacToe.Interfaces;
 using TicTacToe.General;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace TicTacToe.General
 {
     public class ComputerPlayer: IPlayer
     {
+        const string storagePath = "moves.txt";
         public int PlayerNumber{get;private set;}
         Random _random = new Random();
 
@@ -32,8 +35,35 @@ namespace TicTacToe.General
                 Row = row,
                 Col = col,
                 MoveNumber = moveNumber,
-                Player = this
+                PlayerNumber = this.PlayerNumber
             };
+        }
+
+        private List<GameMoves> GetSavedGameMoves(){
+            if (!File.Exists(storagePath))
+            {
+                string createText = JsonConvert.SerializeObject(new List<GameMoves>());
+                File.WriteAllText(storagePath, createText);
+            }
+
+            return JsonConvert.DeserializeObject<List<GameMoves>>(File.ReadAllText(storagePath));
+        }
+
+        private void TryAppendSavedGameMoves(GameMoves gameMove){
+            List<GameMoves> gameMoves = GetSavedGameMoves();
+
+            if(!gameMoves.Contains(gameMove)){
+                gameMoves.Add(gameMove);
+                string strMoves = JsonConvert.SerializeObject(gameMoves);
+                File.WriteAllText(storagePath, strMoves);
+            }
+        }
+
+        public void AfterGameFinished(IGame game){
+           TryAppendSavedGameMoves(new GameMoves(){
+               Moves = game.Moves,
+               WinnerNumber = game.Winner?.PlayerNumber
+           });
         }
     }
 }

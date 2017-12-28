@@ -10,8 +10,10 @@ namespace TicTacToe
     {
         static void Main(string[] args)
         {
+            int numberOfTimes = 0;
+            int.TryParse(args[0], out numberOfTimes);
             IPlayer winner;
-            do{
+            for(int i=0; i<numberOfTimes; i++){
                 IGame game = new TicTacToeGame(new ComputerPlayer(0), new ComputerPlayer(1));
 
                 while(!game.IsGameOver()){
@@ -27,8 +29,12 @@ namespace TicTacToe
                 Console.WriteLine($"Winner number: {game.Winner?.PlayerNumber}");
 
                 winner = game.Winner;
+
+                foreach (IPlayer player in game.Players)
+                {
+                    player.AfterGameFinished(game);
+                }
             }
-            while(winner == null);
         }
     }
 }
