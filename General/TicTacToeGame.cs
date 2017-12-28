@@ -10,14 +10,14 @@ namespace TicTacToe.General
         const int MAX_MOVE_ID = 8;
         private Random _random = new Random();
         private bool _isGameOver = false;
-        private int? _nextPlayerId = null;
+        private int _nextPlayerId = 0;
         private int _moveId = 0;
         public List<IPlayer> Players {get;}
         
         public List<Move> Moves { get; private set; }
         
         public TicTacToeGame(params IPlayer[] players){
-            this.Players = players.OrderBy(p => p.PlayerNumber).ToList();
+            this.Players = players.OrderBy(p => Guid.NewGuid()).ToList();
             Moves = new List<Move>();
         }
         
@@ -26,10 +26,10 @@ namespace TicTacToe.General
         }
         public IPlayer Winner{get;set;}
         public IPlayer GetCurrentPlayer(){
-            return _nextPlayerId.HasValue ? Players[_nextPlayerId.Value] : null;
+            return Players[_nextPlayerId];
         }
         public void NextPlayer(){
-            _nextPlayerId = _nextPlayerId.HasValue ? _nextPlayerId == (Players.Count - 1) ? 0 : _nextPlayerId + 1 : _random.Next(2);
+            _nextPlayerId = _nextPlayerId == (Players.Count - 1) ? 0 : _nextPlayerId + 1;
         }
 
         private bool HasWon(IPlayer player){
