@@ -22,13 +22,15 @@ namespace TicTacToe.General
             List<GameMoves> oldGameMoves = StorageService.GameMoves;
 
             List<GameMoves> winningMatchedMoves = oldGameMoves.Where(m => m.WinnerNumber.HasValue && m.WinnerNumber == PlayerNumber && m.Moves.Take(previousMoves.Count).SequenceEqual(previousMoves)).ToList();
-            List<Move> loosingMatchedMoves = oldGameMoves.Where(m => m.WinnerNumber.HasValue && m.WinnerNumber != PlayerNumber && m.Moves.Take(previousMoves.Count).SequenceEqual(previousMoves)).SelectMany(m => m.Moves).ToList();
+            List<Move> loosingMatchedMoves = oldGameMoves.Where(m => m.WinnerNumber.HasValue && m.WinnerNumber != PlayerNumber && m.Moves.Take(previousMoves.Count).SequenceEqual(previousMoves)).SelectMany(m => m.Moves).Where(m => m.MoveNumber == moveNumber).ToList();
+
+            Move move = null;
 
             if(winningMatchedMoves.Any()){
                 // Console.WriteLine("Success!!");
-                List<Move> availableMoves = winningMatchedMoves.Where(m => m.WinnerNumber == PlayerNumber).SelectMany(m => m.Moves).ToList();
+                List<Move> availableMoves = winningMatchedMoves.Where(m => m.WinnerNumber == PlayerNumber).SelectMany(m => m.Moves).Where(m => m.MoveNumber == moveNumber).ToList();
                 
-                return availableMoves[_random.Next(availableMoves.Count)];
+                move = availableMoves.GroupBy(m => m).OrderByDescending(g => g.Count()).Select(x => x.Key).First();
             }
             else{
                 // Console.WriteLine("Fail!!");
@@ -36,12 +38,19 @@ namespace TicTacToe.General
                 List<Move> unionMoves = loosingMatchedMoves.Union(previousMoves).ToList();
 
                 //Clear list if there are no way to win
-                if(unionMoves.GroupBy(m => m.Row).Count() == 3 && unionMoves.GroupBy(m => m.Col).Count() == 3){
-                    loosingMatchedMoves = new List<Move>();
+                if(loosingMatchedMoves.Any() && unionMoves.GroupBy(m => m.Row).Count() == 3 && unionMoves.GroupBy(m => m.Col).Count() == 3){
+                    move = loosingMatchedMoves.GroupBy(m => m).OrderBy(g => g.Count()).Select(g => g.Key).First();
                 }
 
-                return GetNewRandomMove(moveNumber, previousMoves, loosingMatchedMoves);
+                move = GetNewRandomMove(moveNumber, previousMoves, loosingMatchedMoves);
             }
+
+            return new Move(){
+                Row = move.Row,
+                Col = move.Col,
+                PlayerNumber = PlayerNumber,
+                MoveNumber = moveNumber
+            };
         }
 
         private Move GetNewRandomMove(int moveNumber, List<Move> previousMoves, List<Move> avoidMoves){
