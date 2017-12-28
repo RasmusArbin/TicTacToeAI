@@ -10,8 +10,8 @@ namespace TicTacToe
     {
         static void Main(string[] args)
         {
-            int numberOfTimes = 1;
-            int.TryParse(args[0], out numberOfTimes);
+            int numberOfTimes;
+            int.TryParse(args.FirstOrDefault() ?? "1", out numberOfTimes);
             IPlayer winner;
             for(int i=0; i<numberOfTimes; i++){
                 IGame game = new TicTacToeGame(new HumanPlayer(0), new ComputerPlayer(1));
