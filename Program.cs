@@ -21,12 +21,12 @@ namespace TicTacToe
                     game.Move();
                 }
 
-                foreach (var item in game.Moves)
-                {
-                    Console.WriteLine(item);
-                }
+                // foreach (var item in game.Moves)
+                // {
+                //     Console.WriteLine(item);
+                // }
 
-                Console.WriteLine($"Winner number: {game.Winner?.PlayerNumber}");
+                // Console.WriteLine($"Winner number: {game.Winner?.PlayerNumber}");
 
                 winner = game.Winner;
 
