@@ -33,17 +33,24 @@ namespace TicTacToe.General
         }
 
         private bool HasWon(IPlayer player){
-            var moves = Moves.Where(m => m.PlayerNumber == player.PlayerNumber);
+            var moves = Moves.Where(m => m.PlayerNumber == player.PlayerNumber).ToList();
 
             var rGroup = moves.GroupBy(m => m.Row);
 
-            if(rGroup.Any(g => g.Count() == 3) || (rGroup.Count() == 3 && rGroup.All(g => g.Count() == 1))){
+            if(rGroup.Any(g => g.Count() == 3)){
                 return true;
             }
 
-            var cGroup = moves.GroupBy(m => m.Row);
+            var cGroup = moves.GroupBy(m => m.Col);
 
-            if(cGroup.Any(g => g.Count() == 3)|| (cGroup.Count() == 3 && cGroup.All(g => g.Count() == 1))){
+            if(cGroup.Any(g => g.Count() == 3)){
+                return true;
+            }
+
+            //Cross
+            if((moves.Any(m => m.Col == 0 && m.Row == 0) && moves.Any(m => m.Col == 1 && m.Row == 1) && moves.Any(m => m.Col == 2 && m.Row == 2)) ||
+               (moves.Any(m => m.Col == 0 && m.Row == 2) && moves.Any(m => m.Col == 1 && m.Row == 1) && moves.Any(m => m.Col == 2 && m.Row == 0))
+            ){
                 return true;
             }
 
