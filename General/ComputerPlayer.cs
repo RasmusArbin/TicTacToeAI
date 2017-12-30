@@ -37,12 +37,16 @@ namespace TicTacToe.General
                                
                 List<Move> unionMoves = loosingMatchedMoves.Union(previousMoves).ToList();
 
+                List<IGrouping<int, Move>> gRMoves = unionMoves.GroupBy(m => m.Row).ToList();
+                List<IGrouping<int, Move>> gCMoves = unionMoves.GroupBy(m => m.Col).ToList();
+
                 //Clear list if there are no way to win
-                if(loosingMatchedMoves.Any() && unionMoves.GroupBy(m => m.Row).Count() == 3 && unionMoves.GroupBy(m => m.Col).Count() == 3){
+                if(loosingMatchedMoves.Any() && gRMoves.Count == 3 && gRMoves.All(g => g.Count() == 3) && gCMoves.Count == 3 && gCMoves.All(g => g.Count() == 3)){
                     move = loosingMatchedMoves.GroupBy(m => m).OrderBy(g => g.Count()).Select(g => g.Key).First();
                 }
-
-                move = GetNewRandomMove(moveNumber, previousMoves, loosingMatchedMoves);
+                else{
+                    move = GetNewRandomMove(moveNumber, previousMoves, loosingMatchedMoves);
+                }
             }
 
             return new Move(){
