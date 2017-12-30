@@ -63,8 +63,6 @@ namespace TicTacToe.General
 
             Moves.Add(move);
 
-            _moveId++;
-
             bool won = HasWon(currentPlayer);
 
             _isGameOver = won || _moveId == MAX_MOVE_ID;
@@ -72,6 +70,8 @@ namespace TicTacToe.General
             if(won){
                 Winner = currentPlayer;
             }
+
+            _moveId++;
         }
     }
 }
