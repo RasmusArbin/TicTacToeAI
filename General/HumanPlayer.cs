@@ -19,7 +19,7 @@ namespace TicTacToe.General
             int col = -1;
             int row = -1;
             do{
-                PrintPreviousMoves(previousMoves);
+                GameHelper.PrintMoves(previousMoves);
                 Console.WriteLine("Enter Row");
                 string input = Console.ReadLine();
                 if(int.TryParse(input, out row)){
@@ -41,16 +41,6 @@ namespace TicTacToe.General
                 MoveNumber = moveNumber,
                 PlayerNumber = PlayerNumber
             };
-        }
-
-        private void PrintPreviousMoves(List<Move> previousMoves){
-            for(int r=0;r<3;r++){
-                for(int c=0;c<3;c++){
-                    Move move = previousMoves.FirstOrDefault(m => m.Row == r && m.Col == c);
-                    Console.Write(move?.PlayerNumber.ToString() ?? "X");
-                }   
-                Console.WriteLine("");
-            }
         }
 
         public void AfterGameFinished(IGame game){
