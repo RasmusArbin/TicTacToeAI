@@ -7,6 +7,11 @@ namespace TicTacToe.General
 {
     public class GameMoves
     {
+        public int StartingPlayerNumber{ 
+            get{
+                return Moves[0].PlayerNumber;
+            } 
+        }
         public List<Move> Moves{get;set;}
         public int? WinnerNumber{get;set;}
 
@@ -31,6 +36,16 @@ namespace TicTacToe.General
             }
 
             return hashCode;
+        }
+
+        public bool IsWinner(bool started){
+
+            if(!WinnerNumber.HasValue){
+                return false;
+            }
+
+            return (started && WinnerNumber == StartingPlayerNumber) ||
+                   (!started && WinnerNumber != StartingPlayerNumber);
         }
     }
 }

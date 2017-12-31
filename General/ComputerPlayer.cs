@@ -13,22 +13,28 @@ namespace TicTacToe.General
         const string storagePath = "moves.txt";
         public int PlayerNumber{get;private set;}
         Random _random = new Random();
+        bool _started = false;
 
         public ComputerPlayer(int playerNumber){
             PlayerNumber = playerNumber;
         }
 
         public Move Move(List<Move> previousMoves, int moveNumber){
+
+            if(moveNumber == 0){
+                _started = true;
+            }
+
             List<GameMoves> oldGameMoves = StorageService.GameMoves;
 
-            List<GameMoves> winningMatchedMoves = oldGameMoves.Where(m => m.WinnerNumber.HasValue && m.WinnerNumber == PlayerNumber && m.Moves.Take(previousMoves.Count).SequenceEqual(previousMoves)).ToList();
-            List<Move> loosingMatchedMoves = oldGameMoves.Where(m => m.WinnerNumber.HasValue && m.WinnerNumber != PlayerNumber && m.Moves.Take(previousMoves.Count).SequenceEqual(previousMoves)).SelectMany(m => m.Moves).Where(m => m.MoveNumber == moveNumber).ToList();
+            List<Move> winningMatchedMoves = oldGameMoves.Where(m => m.IsWinner(_started) && m.Moves.Take(previousMoves.Count).SequenceEqual(previousMoves)).SelectMany(m => m.Moves).Where(m => m.MoveNumber == moveNumber).ToList();
+            List<Move> loosingMatchedMoves = oldGameMoves.Where(m => m.IsWinner(_started) && m.Moves.Take(previousMoves.Count).SequenceEqual(previousMoves)).SelectMany(m => m.Moves).Where(m => m.MoveNumber == moveNumber).ToList();
 
             Move move = null;
 
             if(winningMatchedMoves.Any()){
                 // Console.WriteLine("Success!!");
-                List<Move> availableMoves = winningMatchedMoves.Where(m => m.WinnerNumber == PlayerNumber).SelectMany(m => m.Moves).Where(m => m.MoveNumber == moveNumber).ToList();
+                List<Move> availableMoves = winningMatchedMoves.Where(m => m.MoveNumber == moveNumber).ToList();
                 
                 move = availableMoves.GroupBy(m => m).OrderByDescending(g => g.Count()).Select(x => x.Key).First();
             }
