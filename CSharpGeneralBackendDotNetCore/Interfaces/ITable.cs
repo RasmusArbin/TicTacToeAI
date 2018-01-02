@@ -1,0 +1,19 @@
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace CSharpGeneralBackendDDotNetCore.Interfaces
+{
+    public interface ITable<T>
+        where T : class
+    {
+        IQueryable<T> GetAll();
+        
+        void Remove(T entity);
+        void Insert(T entity);
+        void Update(T entity);
+        
+        T GetById(int id);
+        Task<T> GetByIdAsync(int id);
+    }
+}

@@ -1,0 +1,9 @@
+C:\Users\rasmus.arbin\Documents\Projects\TicTacToe2\TicTacToeAI\CSharpGeneralBackendDotNetCore\bin\Debug\netcoreapp2.0\CSharpGeneralBackendDotNetCore.deps.json
+C:\Users\rasmus.arbin\Documents\Projects\TicTacToe2\TicTacToeAI\CSharpGeneralBackendDotNetCore\bin\Debug\netcoreapp2.0\CSharpGeneralBackendDotNetCore.dll
+C:\Users\rasmus.arbin\Documents\Projects\TicTacToe2\TicTacToeAI\CSharpGeneralBackendDotNetCore\bin\Debug\netcoreapp2.0\CSharpGeneralBackendDotNetCore.pdb
+C:\Users\rasmus.arbin\Documents\Projects\TicTacToe2\TicTacToeAI\CSharpGeneralBackendDotNetCore\obj\Debug\netcoreapp2.0\CSharpGeneralBackendDotNetCore.csprojResolveAssemblyReference.cache
+C:\Users\rasmus.arbin\Documents\Projects\TicTacToe2\TicTacToeAI\CSharpGeneralBackendDotNetCore\obj\Debug\netcoreapp2.0\CSharpGeneralBackendDotNetCore.csproj.CoreCompileInputs.cache
+C:\Users\rasmus.arbin\Documents\Projects\TicTacToe2\TicTacToeAI\CSharpGeneralBackendDotNetCore\obj\Debug\netcoreapp2.0\CSharpGeneralBackendDotNetCore.AssemblyInfoInputs.cache
+C:\Users\rasmus.arbin\Documents\Projects\TicTacToe2\TicTacToeAI\CSharpGeneralBackendDotNetCore\obj\Debug\netcoreapp2.0\CSharpGeneralBackendDotNetCore.AssemblyInfo.cs
+C:\Users\rasmus.arbin\Documents\Projects\TicTacToe2\TicTacToeAI\CSharpGeneralBackendDotNetCore\obj\Debug\netcoreapp2.0\CSharpGeneralBackendDotNetCore.dll
+C:\Users\rasmus.arbin\Documents\Projects\TicTacToe2\TicTacToeAI\CSharpGeneralBackendDotNetCore\obj\Debug\netcoreapp2.0\CSharpGeneralBackendDotNetCore.pdb
