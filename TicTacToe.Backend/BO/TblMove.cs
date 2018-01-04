@@ -1,18 +1,14 @@
-using System;
-using TicTacToe.Interfaces;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
+using TicTacToe.Backend.Interfaces;
 
-namespace TicTacToe.General
+namespace TicTacToe.Backend.Models
 {
-    public class Move
+    public partial class TblMove : IBaseBO
     {
-        public int MoveNumber { get; set; }
-        public int Row { get; set; }
-        public int Col { get; set; }
-        public int PlayerNumber { get; set; }
-
-        public override string ToString(){
+        public int Id => MoveId;
+        
+        public override string ToString()
+        {
             return $"Number: {MoveNumber}, Row: {Row}, Col {Col}";
         }
 
@@ -22,11 +18,11 @@ namespace TicTacToe.General
             {
                 return false;
             }
-            
-            Move move = (Move)obj;
+
+            TblMove move = (TblMove)obj;
             return move.MoveNumber == MoveNumber && move.Row == Row && move.Col == Col;
         }
-        
+
         public override int GetHashCode()
         {
             return ToString().GetHashCode();

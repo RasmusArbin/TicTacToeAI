@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 using Newtonsoft.Json;
+using TicTacToe.Backend.Models;
 
 namespace TicTacToe.General
 {
@@ -15,7 +16,7 @@ namespace TicTacToe.General
             PlayerNumber = playerNumber;
         }
 
-        public Move Move(List<Move> previousMoves, int moveNumber){
+        public TblMove Move(List<TblMove> previousMoves, int moveNumber){
             int col = -1;
             int row = -1;
             do{
@@ -35,7 +36,7 @@ namespace TicTacToe.General
             }
             while(row > -1 && row < 3 && col > -1 && col < 3 && previousMoves.Any(m => m.Row == row && m.Col == col));
 
-            return new Move(){
+            return new TblMove(){
                 Col = col,
                 Row = row,
                 MoveNumber = moveNumber,

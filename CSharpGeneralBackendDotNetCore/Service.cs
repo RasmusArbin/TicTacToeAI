@@ -78,6 +78,7 @@ namespace CSharpGeneralBackendDDotNetCore
         }
 
         public async Task<List<T6>> ReadQueryAsync<T6>(IQueryable<T6> query)
+            where T6: class
         {
             string expression = _dbContext.GetQueryableAsString<T6>(query);
             List<T6> lstCacheItems;
@@ -115,6 +116,7 @@ namespace CSharpGeneralBackendDDotNetCore
         }
 
         public List<T6> ReadQuery<T6>(IQueryable<T6> query)
+            where T6: class
         {
             string expression = _dbContext.GetQueryableAsString<T6>(query);
             List<T6> lstCacheItems;
@@ -151,6 +153,7 @@ namespace CSharpGeneralBackendDDotNetCore
         }
 
         private async Task<List<T>> ReadQueryAndCacheAsync<T>(IQueryable<T> query, string expression)
+            where T : class
         {
             List<T> lstCacheItems = await _dbContext.ReadQueryAsync(query);
 
@@ -162,6 +165,7 @@ namespace CSharpGeneralBackendDDotNetCore
         }
 
         private List<T> ReadQueryAndCache<T>(IQueryable<T> query, string expression)
+            where T : class
         {
             List<T> lstCacheItems = _dbContext.ReadQuery(query);
 
@@ -173,6 +177,7 @@ namespace CSharpGeneralBackendDDotNetCore
         }
 
         private void CacheDependencies<T>(IQueryable<T> query, string expression)
+            where T : class
         {
             //Dependencies
             List<string> dependencies = _dbContext.GetDependencies(query);

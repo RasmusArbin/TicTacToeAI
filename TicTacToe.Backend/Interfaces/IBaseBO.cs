@@ -7,7 +7,7 @@ namespace TicTacToe.Backend.Interfaces
     /// </summary>
     public interface IBaseBO: IIdentifiable
     {
-        DateTime Created { get; }
-        DateTime Modified { get; }
+        DateTime Created { get; set; }
+        DateTime Modified { get; set; }
     }
 }

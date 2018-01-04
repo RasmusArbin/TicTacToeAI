@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using TicTacToe.Backend.Models;
 using TicTacToe.General;
 
 namespace TicTacToe.Interfaces
@@ -12,6 +13,6 @@ namespace TicTacToe.Interfaces
         IPlayer GetCurrentPlayer();
         void NextPlayer();
         void Move();
-        List<Move> Moves {get;}
+        List<TblMove> Moves {get;}
     }
 }

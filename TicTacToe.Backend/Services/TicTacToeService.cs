@@ -36,4 +36,8 @@ namespace TicTacToe.Backend.Services
             return MainRepository.GetById(id);
         }
     }
+
+    public class TicTacToeService: Service<TicTacToeRepositoryProvider>
+    {
+    }
 }

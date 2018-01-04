@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using CSharpGeneralBackendDDotNetCore.Interfaces;
 using CSharpGeneralBackendDDotNetCore;
+using TicTacToe.Backend.General;
 
 namespace TicTacToe.Backend.Providers
 {
@@ -27,7 +28,7 @@ namespace TicTacToe.Backend.Providers
             if (obj == null)
             {
                 obj = new T();
-                obj.Bind(RepositoryProvider, null , null);
+                obj.Bind(RepositoryProvider, new TicTacToeLogger(), new TicTacToeCache());
                 _services.Add(typeof(T), obj);
             }
 

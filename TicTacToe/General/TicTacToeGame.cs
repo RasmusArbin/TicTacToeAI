@@ -2,6 +2,7 @@ using System;
 using TicTacToe.Interfaces;
 using System.Linq;
 using System.Collections.Generic;
+using TicTacToe.Backend.Models;
 
 namespace TicTacToe.General
 {
@@ -14,11 +15,11 @@ namespace TicTacToe.General
         private int _moveId = 0;
         public List<IPlayer> Players {get;}
         
-        public List<Move> Moves { get; private set; }
+        public List<TblMove> Moves { get; private set; }
         
         public TicTacToeGame(params IPlayer[] players){
             this.Players = players.OrderBy(p => Guid.NewGuid()).ToList();
-            Moves = new List<Move>();
+            Moves = new List<TblMove>();
         }
         
         public bool IsGameOver(){
@@ -59,7 +60,7 @@ namespace TicTacToe.General
 
         public void Move(){
             var currentPlayer = GetCurrentPlayer();
-            Move move = currentPlayer.Move(Moves, _moveId);
+            TblMove move = currentPlayer.Move(Moves, _moveId);
 
             Moves.Add(move);
 

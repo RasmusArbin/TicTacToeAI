@@ -13,12 +13,12 @@ namespace CSharpGeneralBackendDDotNetCore.Interfaces
         ITable<TEntity> DbSet<TEntity>()
             where TEntity : class;
 
-        string GetQueryableAsString<T>(IQueryable<T> queryable);
+        string GetQueryableAsString<T>(IQueryable<T> queryable) where T : class;
 
-        List<string> GetDependencies<T>(IQueryable<T> queryable);
+        List<string> GetDependencies<T>(IQueryable<T> queryable) where T : class;
 
-        List<T> ReadQuery<T>(IQueryable<T> query);
+        List<T> ReadQuery<T>(IQueryable<T> query) where T : class;
 
-        Task<List<T>> ReadQueryAsync<T>(IQueryable<T> query);
+        Task<List<T>> ReadQueryAsync<T>(IQueryable<T> query) where T : class;
     }
 }

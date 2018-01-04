@@ -1,4 +1,6 @@
-﻿using CSharpGeneralBackendDDotNetCore;
+﻿using System;
+using System.Threading.Tasks;
+using CSharpGeneralBackendDDotNetCore;
 using CSharpGeneralBackendDDotNetCore.Interfaces;
 using TicTacToe.Backend.Interfaces;
 

@@ -1,13 +1,12 @@
-using System;
 using System.Collections.Generic;
-using TicTacToe.General;
+using TicTacToe.Backend.Models;
 
 namespace TicTacToe.Interfaces
 {
     public interface IPlayer
     {
         int PlayerNumber{get;}
-        Move Move(List<Move> previousMoves, int moveId);
+        TblMove Move(List<TblMove> previousMoves, int moveId);
         void AfterGameFinished(IGame game);
     }
 }

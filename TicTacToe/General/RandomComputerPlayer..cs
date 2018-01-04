@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 using Newtonsoft.Json;
+using TicTacToe.Backend.Models;
+using TicTacToe.Backend.Services;
 
 namespace TicTacToe.General
 {
@@ -18,10 +20,10 @@ namespace TicTacToe.General
             PlayerNumber = playerNumber;
         }
 
-        public Move Move(List<Move> previousMoves, int moveNumber){
+        public TblMove Move(List<TblMove> previousMoves, int moveNumber){
             var move = GetNewRandomMove(moveNumber, previousMoves);
 
-            return new Move(){
+            return new TblMove(){
                 Row = move.Row,
                 Col = move.Col,
                 PlayerNumber = PlayerNumber,
@@ -29,7 +31,7 @@ namespace TicTacToe.General
             };
         }
 
-        private Move GetNewRandomMove(int moveNumber, List<Move> previousMoves){
+        private TblMove GetNewRandomMove(int moveNumber, List<TblMove> previousMoves){
             int col;
             int row;
             do{
@@ -38,7 +40,7 @@ namespace TicTacToe.General
             }
             while(previousMoves.Any(m => m.Row == row && m.Col == col));
 
-            return new Move(){
+            return new TblMove(){
                 Row = row,
                 Col = col,
                 MoveNumber = moveNumber,
@@ -47,10 +49,17 @@ namespace TicTacToe.General
         }
 
         public void AfterGameFinished(IGame game){
-           StorageService.TryAppendSavedGameMoves(new GameMoves(){
-               Moves = game.Moves,
-               WinnerNumber = game.Winner?.PlayerNumber
-           });
+            TblGame tblGame = new TblGame()
+            {
+                WinnerPlayerNumber = game.Winner?.PlayerNumber
+            };
+
+            foreach (var move in game.Moves)
+            {
+                tblGame.TblMove.Add(move);
+            }
+
+            Providers.ServiceProvider.GetService<GameService>().TryAppendSavedGameMoves(tblGame);
         }
     }
 }
